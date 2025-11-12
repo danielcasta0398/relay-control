@@ -1,21 +1,11 @@
-import { Gpio } from 'onoff';
+import { Gpio } from 'pigpio';
 
-// ⚙️ Configura el pin GPIO que controla tu relé
-// Si lo conectaste al pin físico 11 → GPIO17
-// (Cambia el número si tu pin es distinto)
-const relay = new Gpio(11, 'out');
+const relay = new Gpio(11, { mode: Gpio.OUTPUT });
 
 console.log('Hola desde Raspberry Pi (¡pronto relé activo!)');
-
-// 🔴 Activa el relé
-relay.writeSync(1);
-console.log('Relé activado');
-
+relay.digitalWrite(1);           // si tu módulo es activo-bajo, usa 0 aquí
 setTimeout(() => {
-  // 🔵 Apaga el relé
-  relay.writeSync(0);
+  relay.digitalWrite(0);         // apaga (o 1 si es activo-bajo)
   console.log('Relé apagado');
-
-  // 🧹 Libera el GPIO
-  relay.unexport();
+  process.exit(0);
 }, 5000);
