@@ -1,21 +1,14 @@
 import rpio from 'rpio';
 
-// GPIO17 (pin físico 11)
-const pin = 17;
+// (por defecto rpio usa 'physical' en tu entorno)
+const PIN = 11; // pin físico 11
 
 console.log('Hola desde Raspberry Pi (¡activando relé!)');
-
-// Configurar pin como salida
-rpio.open(pin, rpio.OUTPUT, rpio.LOW);
-
-// Activar relé
-rpio.write(pin, rpio.HIGH);
-console.log('Relé activado');
-
+rpio.open(PIN, rpio.OUTPUT, rpio.LOW);
+rpio.write(PIN, rpio.HIGH);
 setTimeout(() => {
-  // Apagar relé
-  rpio.write(pin, rpio.LOW);
+  rpio.write(PIN, rpio.LOW);
   console.log('Relé apagado');
-  rpio.close(pin);
+  rpio.close(PIN);
   process.exit(0);
 }, 5000);
